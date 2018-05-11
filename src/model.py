@@ -44,14 +44,15 @@ dr = DataReader('../data/sts-dev.csv')
 texts, scores = dr.read_data()
 tk = Tokenizer()
 tk.fit_on_texts(texts)
-m = tk.texts_to_matrix(texts, mode='tfidf')
-m = matrix_to_input(m)
+x_train = tk.texts_to_matrix(texts, mode='tfidf')
+x_train = matrix_to_input(x_train)
+y_train = scores_to_categorical(scores)
 
-num_rows, num_columns = m.shape
+num_rows, num_columns = x_train.shape
 model = Sequential()
 model.add(Dense(NUM_CATEGORIES, input_shape=(num_columns,)))
 model.add(Activation('linear'))
 model.summary()
 
 model.compile(loss='mean_squared_error', optimizer='sgd', metrics=['mae', 'acc'])
-model.fit(m, scores_to_categorical(scores), epochs=50)
+model.fit(x_train, y_train, epochs=50)
