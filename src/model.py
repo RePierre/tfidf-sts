@@ -10,7 +10,7 @@ from keras.layers import Activation, Dense
 
 from datareader import DataReader
 
-NUM_CATEGORIES = 6
+NUM_CATEGORIES = 6              # STS scores are between 0 and 5
 
 
 def matrix_to_input(matrix):
