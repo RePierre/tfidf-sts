@@ -7,6 +7,7 @@ import numpy as np
 from keras.preprocessing.text import Tokenizer
 from keras.models import Sequential
 from keras.layers import Activation, Dense
+from keras.callbacks import TensorBoard
 
 from datareader import DataReader
 
@@ -59,8 +60,17 @@ model.add(Dense(NUM_CATEGORIES, input_shape=(num_columns,)))
 model.add(Activation('linear'))
 model.summary()
 
+current_time = datetime.datetime.now().strftime('%Y-%m-%d-%H%M')
+logdir = path.join('logs', current_time)
+tensorboardDisplay = TensorBoard(log_dir=logdir,
+                                 histogram_freq=0,
+                                 write_graph=True,
+                                 write_images=True,
+                                 write_grads=True)
+
 model.compile(loss='mean_squared_error', optimizer='sgd', metrics=['mae', 'acc'])
-model.fit(x_train, y_train, epochs=50)
+model.fit(x_train, y_train, epochs=500,
+          callbacks=[tensorboardDisplay])
 
 x_test, y_test = read_input_data('../data/sts-test.csv')
 print(model.evaluate(x_test, y_test))
