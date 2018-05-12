@@ -39,7 +39,7 @@ python fulltextmodel.py
 
 ### Model ###
 
-As mentioned above, the model is a simple dense layer with a `tanh` activation above it.
+As mentioned above, the model is a simple dense layer with a `linear` activation above it.
 
 ``` text
 _________________________________________________________________
@@ -73,11 +73,11 @@ _________________________________________________________________
 The first evaluation attemp failed due to an error:
 
 ``` python
-ValueError: Error when checking input: expected dense_1_input to have shape (12950,) but got array with shape (7572,)
+ValueError: Error when checking input: expected dense_1_input to have shape (24212,) but got array with shape (7572,)
 ```
 
 This signals the main **issues** of this approach:
 - **The model is too rigid and cannot accomodate new words**
-- **Faulty encoding** - the _encoding is tightly coupled with text corpus_; in the training phase, since training corpus is larger than test corpus, using `TF-IDF` as the encoding mechanism for texts resulted in each text being represented in a `6475` dimensional vector (`12950/2`) while encoding the test set resulted in a `3786` dimensional vector which cannot be accepted by the model because the model is expecting to work with vectors of the same dimensionality as those it was trained on.
+- **Faulty encoding** - the _encoding is tightly coupled with text corpus_; in the training phase, since training corpus is larger than test corpus, using `TF-IDF` as the encoding mechanism for texts resulted in each text being represented in a `12106` dimensional vector (`24212/2`) while encoding the test set resulted in a `3786` dimensional vector which cannot be accepted by the model because the model is expecting to work with vectors of the same dimensionality as those it was trained on.
 
 ## TF-IDF encoding based on both train and test data sets ##
