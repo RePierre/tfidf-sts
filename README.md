@@ -15,10 +15,25 @@ The data pipeline for this task is built as follows:
 The repository is setup as follows:
 - `img` folder contains images included in this file
 - `src` folder contains the code for current PoC
+  - `model.py` contains the code where train and test data sets are separate
+  - `fulltextmodel.py` contains the code where train and test texts are concatenated to build a single TF-IDF encoding
 - `data` folder contains the data used for this PoC:
   - `sts-dev.csv` -- the data set used for developing the model
   - `sts-train.csv` -- the data set used for training the model
   - `sts-test.csv` -- the data set used for evaluating the model
+
+## Running the code ##
+
+``` shell
+cd ./src/
+python model.py
+```
+or
+
+``` shell
+cd ./src/
+python fulltextmodel.py
+```
 
 ## Model and training ##
 
@@ -64,3 +79,5 @@ ValueError: Error when checking input: expected dense_1_input to have shape (129
 This signals the main **issues** of this approach:
 - **The model is too rigid and cannot accomodate new words**
 - **Faulty encoding** - the _encoding is tightly coupled with text corpus_; in the training phase, since training corpus is larger than test corpus, using `TF-IDF` as the encoding mechanism for texts resulted in each text being represented in a `6475` dimensional vector (`12950/2`) while encoding the test set resulted in a `3786` dimensional vector which cannot be accepted by the model because the model is expecting to work with vectors of the same dimensionality as those it was trained on.
+
+## TF-IDF encoding based on both train and test data sets ##
