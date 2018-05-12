@@ -45,12 +45,12 @@ As mentioned above, the model is a simple dense layer with a `linear` activation
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #
 =================================================================
-dense_1 (Dense)              (None, 6)                 77706
+dense_1 (Dense)              (None, 6)                 145278
 _________________________________________________________________
 activation_1 (Activation)    (None, 6)                 0
 =================================================================
-Total params: 77,706
-Trainable params: 77,706
+Total params: 145,278
+Trainable params: 145,278
 Non-trainable params: 0
 _________________________________________________________________
 
