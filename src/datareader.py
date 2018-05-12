@@ -1,4 +1,6 @@
-import pandas
+import csv
+
+SEPARAT0R = '\t'
 
 
 class DataReader():
@@ -13,10 +15,23 @@ class DataReader():
     def read_data(self):
         texts = []
         scores = []
-        df = pandas.read_csv(self._input_file, header=None, sep='\t', error_bad_lines=False)
-        for _, score, text1, text2 in df.filter([4, 5, 6]).itertuples():
-            if type(text1) == str and type(text2) == str:
-                texts.append(text1)
-                texts.append(text2)
-                scores.append(score)
+        with open(self._input_file, 'r') as tsv:
+            reader = csv.reader(tsv, delimiter=SEPARAT0R)
+            for row in reader:
+                parse_successful, score, text1, text2 = self._parse_row(row)
+                if parse_successful:
+                    texts.append(text1)
+                    texts.append(text2)
+                    scores.append(score)
         return texts, scores
+
+    def _parse_row(self, row):
+        try:
+            score = float(row[4])
+            text1 = row[5]
+            text2 = row[6]
+            return True, score, text1, text2
+        except ValueError:
+            return False, None, None, None
+        except IndexError:
+            return False, None, None, None

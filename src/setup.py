@@ -6,7 +6,6 @@ install_requires = [
     "numpy",
     "tensorflow",
     "keras",
-    "pandas",
     "spacy",
     "tensorboard"
 ]
@@ -17,7 +16,7 @@ extras = {
         "rope_py3k",
         "importmagic",
         "yapf"
-    ]   
+    ]
 }
 
 setup(
