@@ -40,13 +40,18 @@ def scores_to_categorical(scores):
     return result
 
 
-dr = DataReader('../data/sts-dev.csv')
-texts, scores = dr.read_data()
-tk = Tokenizer()
-tk.fit_on_texts(texts)
-x_train = tk.texts_to_matrix(texts, mode='tfidf')
-x_train = matrix_to_input(x_train)
-y_train = scores_to_categorical(scores)
+def read_input_data(file_name):
+    dr = DataReader(file_name)
+    texts, scores = dr.read_data()
+    tk = Tokenizer()
+    tk.fit_on_texts(texts)
+    x = tk.texts_to_matrix(texts, mode='tfidf')
+    x = matrix_to_input(x)
+    y = scores_to_categorical(scores)
+    return x, y
+
+
+x_train, y_train = read_input_data('../data/sts-dev.csv')
 
 num_rows, num_columns = x_train.shape
 model = Sequential()
@@ -56,3 +61,6 @@ model.summary()
 
 model.compile(loss='mean_squared_error', optimizer='sgd', metrics=['mae', 'acc'])
 model.fit(x_train, y_train, epochs=50)
+
+x_test, y_test = read_input_data('../data/sts-test.csv')
+print(model.evaluate(x_test, y_test))
