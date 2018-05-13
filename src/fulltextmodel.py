@@ -29,11 +29,11 @@ def read_input_data(train_dataset, test_dataset):
     return x_train, y_train, x_test, y_test
 
 
-x_train, y_train, x_test, y_test = read_input_data('../data/sts-train.csv')
+x_train, y_train, x_test, y_test = read_input_data('../data/sts-train.csv', '../data/sts-test.csv')
 
 num_rows, num_columns = x_train.shape
 model = Sequential()
-model.add(Dense(NUM_CATEGORIES, input_shape=(num_columns,)))
+model.add(Dense(utils.NUM_CATEGORIES, input_shape=(num_columns,)))
 model.add(Activation('linear'))
 model.summary()
 
@@ -48,6 +48,4 @@ tensorboardDisplay = TensorBoard(log_dir=logdir,
 model.compile(loss='mean_squared_error', optimizer='sgd', metrics=['mae', 'acc'])
 model.fit(x_train, y_train, epochs=500,
           callbacks=[tensorboardDisplay])
-
-x_test, y_test = read_input_data('../data/sts-test.csv')
 print(model.evaluate(x_test, y_test))
