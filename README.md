@@ -102,12 +102,10 @@ _________________________________________________________________
 ```
 
 ### Evaluation results ###
-The evaluation of the model yielded the following output (non-tabulated):
-
-
-| Loss                | Mean absolute error | Accuracy            |
-| 0.16546370393486434 | 0.2997319149287371  | 0.20519713261648745 |
-
+The evaluation of the model yielded the following output (not formatted):
+- **Loss**: `0.16546370393486434`
+- **Mean absolute error**: `0.2997319149287371`
+- **Accuracy**: `0.20519713261648745`
 
 As can be seen from the table above, the model performs quite poorly even though the results for loss and accuracy during training stage were so promising. This is most probably due to the fact that model is overfitting.
 
