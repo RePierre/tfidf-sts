@@ -16,6 +16,17 @@ def matrix_to_input(matrix):
     return result
 
 
+def matrix_to_tfidf_dif(matrix):
+    num_rows, num_columns = matrix.shape
+    result = []
+    for i in range(int(num_rows / 2)):
+        t1 = matrix[2 * i]
+        t2 = matrix[2 * i + 1]
+        c = np.absolute(t1 + 12)
+        result.append(c)
+    return np.asarray(result)
+
+
 def scores_to_categorical(scores):
     result = []
     for score in scores:

@@ -32,8 +32,12 @@ or
 
 ``` shell
 cd ./src/
-python fulltextmodel.py
+python fulltextmodel.py --input-mode <input-mode>
 ```
+where `input-mode` is either:
+
+- `concatenate` to concatenate input vectors and send the result to the model
+- `absdiff` to send the model the abs of element-wise diff of the input vectors
 
 ## Model and training ##
 
